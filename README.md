@@ -11,6 +11,7 @@ sudo apt install -y cmake ninja-build libusb-1.0-0-dev
 - Build the project
 
 ```shell
+cd xmosdfu
 cmake -G Ninja -B build
 cmake --build build --config Release
 ```
