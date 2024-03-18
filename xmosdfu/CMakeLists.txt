@@ -17,11 +17,11 @@ set(SRCLIST
 
 if(UNIX AND NOT APPLE)
     find_path(LIBSERIALPORT_INCLUDE_DIR NAMES libusb.h)
-    find_library(LIBSERIALPORT_LIBRARY NAMES usb-1.0)
+    find_library(LIBUSB_LIBRARY NAMES usb-1.0)
 endif()
 
 add_executable(${PROJECT_NAME} ${SRCLIST})
 
 target_link_libraries(${PROJECT_NAME}
-    ${LIBSERIALPORT_LIBRARY}
+    ${LIBUSB_LIBRARY}
 )
