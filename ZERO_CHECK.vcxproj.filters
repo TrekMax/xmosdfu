@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\albent\Desktop\dfu\lib_xua\lib_xua\host\xmosdfu\CMakeFiles\971662b9598558afd93c83bac2f30f71\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{77930E86-76C9-30F1-92AB-16B872D84DE7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
