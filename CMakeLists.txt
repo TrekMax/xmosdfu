@@ -5,32 +5,39 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED On)
 set(CMAKE_CXX_EXTENSIONS Off)
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Only Release mode is allowed" FORCE)
+if (WIN_PLATFORM)
+
+# 从环境变量获取交叉编译工具链路径
+set(GCC_PATH "/usr")
+
+# 设置C和C++编译器
+set(CMAKE_C_COMPILER "${GCC_PATH}/bin/x86_64-w64-mingw32-gcc")
+set(CMAKE_CXX_COMPILER "${GCC_PATH}/bin/x86_64-w64-mingw32-g++")
+
+# 设置目标系统
+set(CMAKE_SYSTEM_NAME WIN32)
+
+# 指定交叉编译环境的根路径（如果有）
+
+set(CMAKE_FIND_ROOT_PATH /usr/x86_64-w64-mingw32/)
+
+# 避免在系统路径中查找程序、库、头文件等
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+add_definitions(-DWIN32)
+add_definitions(-D__CYGWIN__)
+set(__CYGWIN__)
+endif()
 
 project(xmosdfu)
 
+add_subdirectory(lib/libusb)
+
 add_executable(xmosdfu ${CMAKE_CURRENT_LIST_DIR}/src/xmosdfu.cpp)
 
-# Discern OS for libusb library location
-if ((${CMAKE_SYSTEM_NAME} MATCHES "Darwin") AND (${CMAKE_SYSTEM_PROCESSOR} MATCHES "x86_64"))
-    target_link_directories(xmosdfu PRIVATE "${CMAKE_CURRENT_LIST_DIR}/libusb/OSX64")
-    set(libusb-1.0_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/libusb/OSX64")
-    set(LINK_LIBS usb-1.0.0)
-elseif ((${CMAKE_SYSTEM_NAME} MATCHES "Darwin") AND (${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm64"))
-    target_link_directories(xmosdfu PRIVATE "${CMAKE_CURRENT_LIST_DIR}/libusb/OSXARM")
-    set(libusb-1.0_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/libusb/OSXARM")
-    set(LINK_LIBS usb-1.0.0)
-elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    find_package(PkgConfig)
-    pkg_check_modules(libusb-1.0 REQUIRED libusb-1.0)
-    set(LINK_LIBS usb-1.0)
-elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    add_compile_definitions(nologo WAll WX- O2 EHa)
-    target_link_directories(xmosdfu PRIVATE "${CMAKE_CURRENT_LIST_DIR}/libusb/Win32")
-    set(libusb-1.0_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/libusb/Win32")
-    set(LINK_LIBS libusb-1.0)
-endif()
+target_include_directories(xmosdfu PRIVATE ./lib/libusb/libusb/libusb)
+target_link_libraries(xmosdfu PRIVATE usb-1.0)
 
-target_link_libraries(xmosdfu PRIVATE ${LINK_LIBS})
-
-target_include_directories(xmosdfu PRIVATE ${libusb-1.0_INCLUDE_DIRS})
 
