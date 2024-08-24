@@ -1,3 +1,0 @@
-C:/Users/albent/Desktop/dfu/lib_xua/lib_xua/host/xmosdfu/CMakeFiles/xmosdfu.dir
-C:/Users/albent/Desktop/dfu/lib_xua/lib_xua/host/xmosdfu/CMakeFiles/ALL_BUILD.dir
-C:/Users/albent/Desktop/dfu/lib_xua/lib_xua/host/xmosdfu/CMakeFiles/ZERO_CHECK.dir
